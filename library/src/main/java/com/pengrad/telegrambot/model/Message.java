@@ -136,6 +136,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
     private Integer paid_star_count;
     private ChatOwnerLeft chat_owner_left;
     private ChatOwnerChanged chat_owner_changed;
+    private ManagedBotCreated managed_bot_created;
+    private PollOptionAdded poll_option_added;
+    private PollOptionDeleted poll_option_deleted;
+    private String reply_to_poll_option_id;
 
     public Long messageThreadId() {
         return message_thread_id;
@@ -550,6 +554,22 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
         return chat_owner_changed;
     }
 
+    public ManagedBotCreated managedBotCreated() {
+        return managed_bot_created;
+    }
+
+    public PollOptionAdded pollOptionAdded() {
+        return poll_option_added;
+    }
+
+    public PollOptionDeleted pollOptionDeleted() {
+        return poll_option_deleted;
+    }
+
+    public String replyToPollOptionId() {
+        return reply_to_poll_option_id;
+    }
+
     /**
      * Only for backwards-compatibility with MaybeInaccessibleMessage
      */
@@ -681,7 +701,11 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 Objects.equals(direct_message_price_changed, message.direct_message_price_changed) &&
                 Objects.equals(paid_star_count, message.paid_star_count) &&
                 Objects.equals(chat_owner_left, message.chat_owner_left) &&
-                Objects.equals(chat_owner_changed, message.chat_owner_changed);
+                Objects.equals(chat_owner_changed, message.chat_owner_changed) &&
+                Objects.equals(managed_bot_created, message.managed_bot_created) &&
+                Objects.equals(poll_option_added, message.poll_option_added) &&
+                Objects.equals(poll_option_deleted, message.poll_option_deleted) &&
+                Objects.equals(reply_to_poll_option_id, message.reply_to_poll_option_id);
     }
 
     @Override
@@ -798,6 +822,10 @@ public class Message extends MaybeInaccessibleMessage implements Serializable {
                 ", paid_star_count=" + paid_star_count +
                 ", chat_owner_left=" + chat_owner_left +
                 ", chat_owner_changed=" + chat_owner_changed +
+                ", managed_bot_created=" + managed_bot_created +
+                ", poll_option_added=" + poll_option_added +
+                ", poll_option_deleted=" + poll_option_deleted +
+                ", reply_to_poll_option_id='" + reply_to_poll_option_id + '\'' +
                 '}';
     }
 }

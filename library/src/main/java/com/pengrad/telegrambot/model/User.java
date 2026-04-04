@@ -25,6 +25,7 @@ public class User implements Serializable {
     private Boolean has_main_web_app;
     private Boolean has_topics_enabled;
     private Boolean allows_users_to_create_topics;
+    private Boolean can_manage_bots;
 
     private User() {
     }
@@ -93,6 +94,10 @@ public class User implements Serializable {
         return allows_users_to_create_topics;
     }
 
+    public Boolean canManageBots() {
+        return can_manage_bots != null && can_manage_bots;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,7 +109,8 @@ public class User implements Serializable {
                 && Objects.equals(can_join_groups, user.can_join_groups) && Objects.equals(can_read_all_group_messages, user.can_read_all_group_messages)
                 && Objects.equals(supports_inline_queries, user.supports_inline_queries) && Objects.equals(can_connect_to_business, user.can_connect_to_business)
                 && Objects.equals(has_main_web_app, user.has_main_web_app) && Objects.equals(has_topics_enabled, user.has_topics_enabled)
-                && Objects.equals(allows_users_to_create_topics, user.allows_users_to_create_topics);
+                && Objects.equals(allows_users_to_create_topics, user.allows_users_to_create_topics)
+                && Objects.equals(can_manage_bots, user.can_manage_bots);
     }
 
     @Override
@@ -130,6 +136,7 @@ public class User implements Serializable {
                 ", has_main_web_app=" + has_main_web_app +
                 ", has_topics_enabled=" + has_topics_enabled +
                 ", allows_users_to_create_topics=" + allows_users_to_create_topics +
+                ", can_manage_bots=" + can_manage_bots +
                 '}';
     }
 }

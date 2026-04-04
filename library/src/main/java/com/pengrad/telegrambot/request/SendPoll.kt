@@ -63,7 +63,7 @@ class SendPoll private constructor(
 
     var isAnonymous: Boolean? by optionalRequestParameter()
     var allowsMultipleAnswers: Boolean? by optionalRequestParameter()
-    var correctOptionId: Int? by optionalRequestParameter()
+    var correctOptionIds: List<Int>? by optionalRequestParameter()
 
     var questionParseMode: ParseMode? by optionalRequestParameter()
     var questionEntities: List<MessageEntity>? by optionalRequestParameter()
@@ -76,6 +76,14 @@ class SendPoll private constructor(
     var closeDate: Long? by optionalRequestParameter()
     var isClosed: Boolean? by optionalRequestParameter()
 
+    var allowsRevoting: Boolean? by optionalRequestParameter()
+    var shuffleOptions: Boolean? by optionalRequestParameter()
+    var allowAddingOptions: Boolean? by optionalRequestParameter()
+    var hideResultsUntilCloses: Boolean? by optionalRequestParameter()
+    var description: String? by optionalRequestParameter()
+    var descriptionParseMode: ParseMode? by optionalRequestParameter()
+    var descriptionEntities: List<MessageEntity>? by optionalRequestParameter()
+
     fun type(type: Poll.Type) = applySelf { this.type = type }
 
     fun type(typeRaw: String) = applySelf { this.typeRaw = typeRaw }
@@ -84,7 +92,9 @@ class SendPoll private constructor(
 
     fun allowsMultipleAnswers(allowMultipleAnswers: Boolean) = applySelf { this.allowsMultipleAnswers = allowMultipleAnswers }
 
-    fun correctOptionId(correctOptionId: Int) = applySelf { this.correctOptionId = correctOptionId }
+    fun correctOptionId(correctOptionId: Int) = applySelf { this.correctOptionIds = listOf(correctOptionId) }
+
+    fun correctOptionIds(correctOptionIds: List<Int>) = applySelf { this.correctOptionIds = correctOptionIds }
 
     fun questionParseMode(questionParseMode: ParseMode) = applySelf { this.questionParseMode = questionParseMode }
 
@@ -105,5 +115,21 @@ class SendPoll private constructor(
     fun closeDate(closeDate: Long) = applySelf { this.closeDate = closeDate }
 
     fun isClosed(isClosed: Boolean) = applySelf { this.isClosed = isClosed }
+
+    fun allowsRevoting(allowsRevoting: Boolean) = applySelf { this.allowsRevoting = allowsRevoting }
+
+    fun shuffleOptions(shuffleOptions: Boolean) = applySelf { this.shuffleOptions = shuffleOptions }
+
+    fun allowAddingOptions(allowAddingOptions: Boolean) = applySelf { this.allowAddingOptions = allowAddingOptions }
+
+    fun hideResultsUntilCloses(hideResultsUntilCloses: Boolean) = applySelf { this.hideResultsUntilCloses = hideResultsUntilCloses }
+
+    fun description(description: String) = applySelf { this.description = description }
+
+    fun descriptionParseMode(descriptionParseMode: ParseMode) = applySelf { this.descriptionParseMode = descriptionParseMode }
+
+    fun descriptionEntities(descriptionEntities: List<MessageEntity>) = applySelf { this.descriptionEntities = descriptionEntities }
+
+    fun descriptionEntities(vararg descriptionEntities: MessageEntity) = descriptionEntities(descriptionEntities.toList())
 
 }

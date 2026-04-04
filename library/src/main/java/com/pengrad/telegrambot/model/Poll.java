@@ -23,11 +23,14 @@ public class Poll implements Serializable {
     private Boolean is_anonymous;
     private Type type;
     private Boolean allows_multiple_answers;
-    private Integer correct_option_id;
+    private Integer[] correct_option_ids;
+    private Boolean allows_revoting;
     private String explanation;
     private MessageEntity[] explanation_entities;
     private Integer open_period;
     private Integer close_date;
+    private String description;
+    private MessageEntity[] description_entities;
 
     public String id() {
         return id;
@@ -66,7 +69,15 @@ public class Poll implements Serializable {
     }
 
     public Integer correctOptionId() {
-        return correct_option_id;
+        return correct_option_ids != null && correct_option_ids.length > 0 ? correct_option_ids[0] : null;
+    }
+
+    public Integer[] correctOptionIds() {
+        return correct_option_ids;
+    }
+
+    public Boolean allowsRevoting() {
+        return allows_revoting;
     }
 
     public String explanation() {
@@ -83,6 +94,14 @@ public class Poll implements Serializable {
 
     public Integer closeDate() {
         return close_date;
+    }
+
+    public String description() {
+        return description;
+    }
+
+    public MessageEntity[] descriptionEntities() {
+        return description_entities;
     }
 
     @Override
@@ -103,12 +122,15 @@ public class Poll implements Serializable {
         if (type != poll.type) return false;
         if (allows_multiple_answers != null ? !allows_multiple_answers.equals(poll.allows_multiple_answers) : poll.allows_multiple_answers != null)
             return false;
-        if (correct_option_id != null ? !correct_option_id.equals(poll.correct_option_id) : poll.correct_option_id != null)
+        if (!Arrays.equals(correct_option_ids, poll.correct_option_ids)) return false;
+        if (allows_revoting != null ? !allows_revoting.equals(poll.allows_revoting) : poll.allows_revoting != null)
             return false;
         if (explanation != null ? !explanation.equals(poll.explanation) : poll.explanation != null) return false;
         if (!Arrays.equals(explanation_entities, poll.explanation_entities)) return false;
         if (open_period != null ? !open_period.equals(poll.open_period) : poll.open_period != null) return false;
-        return close_date != null ? close_date.equals(poll.close_date) : poll.close_date == null;
+        if (close_date != null ? !close_date.equals(poll.close_date) : poll.close_date != null) return false;
+        if (description != null ? !description.equals(poll.description) : poll.description != null) return false;
+        return Arrays.equals(description_entities, poll.description_entities);
     }
 
     @Override
@@ -128,11 +150,14 @@ public class Poll implements Serializable {
                 ", is_anonymous=" + is_anonymous +
                 ", type=" + type +
                 ", allows_multiple_answers=" + allows_multiple_answers +
-                ", correct_option_id=" + correct_option_id +
+                ", correct_option_ids=" + Arrays.toString(correct_option_ids) +
+                ", allows_revoting=" + allows_revoting +
                 ", explanation='" + explanation + '\'' +
                 ", explanation_entities=" + Arrays.toString(explanation_entities) +
                 ", open_period=" + open_period +
                 ", close_date=" + close_date +
+                ", description='" + description + '\'' +
+                ", description_entities=" + Arrays.toString(description_entities) +
                 '}';
     }
 }

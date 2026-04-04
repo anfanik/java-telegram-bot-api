@@ -17,6 +17,7 @@ public class KeyboardButton implements Serializable {
     private KeyboardButtonPollType request_poll;
     private KeyboardButtonRequestUsers request_users;
     private KeyboardButtonRequestChat request_chat;
+    private KeyboardButtonRequestManagedBot request_managed_bot;
     private WebAppInfo web_app;
     private String icon_custom_emoji_id;
     private String style;
@@ -47,6 +48,11 @@ public class KeyboardButton implements Serializable {
 
     public KeyboardButton requestChat(KeyboardButtonRequestChat chat) {
         this.request_chat = chat;
+        return this;
+    }
+
+    public KeyboardButton requestManagedBot(KeyboardButtonRequestManagedBot managedBot) {
+        this.request_managed_bot = managedBot;
         return this;
     }
 
